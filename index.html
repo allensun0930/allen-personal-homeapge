@@ -1,0 +1,741 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="孙光辉的个人主页：全球路由产品线、Wi-Fi 产品战略、GTM 和消费电子产品商业化经验。" />
+    <meta name="theme-color" content="#080a0d" />
+    <title>孙光辉 Allen Sun | 消费电子产品领域深耕者</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --bg: #080a0d;
+        --panel: rgba(14, 18, 23, 0.72);
+        --ink: #f4f0e8;
+        --muted: #a8b0b7;
+        --subtle: #68727d;
+        --line: rgba(244, 240, 232, 0.14);
+        --line-strong: rgba(244, 240, 232, 0.28);
+        --accent: #d9b56f;
+        --accent-2: #65c7d2;
+        --accent-3: #e67f6f;
+        --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        background: var(--bg);
+      }
+
+      body {
+        margin: 0;
+        min-width: 320px;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 12% 8%, rgba(101, 199, 210, 0.12), transparent 30rem),
+          radial-gradient(circle at 82% 12%, rgba(217, 181, 111, 0.11), transparent 32rem),
+          linear-gradient(180deg, #080a0d 0%, #0c1015 48%, #080a0d 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .shell {
+        width: min(1180px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(244, 240, 232, 0.09);
+        background: rgba(8, 10, 13, 0.82);
+        backdrop-filter: blur(18px);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 72px;
+        gap: 22px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .brand span {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border: 1px solid var(--line-strong);
+        border-radius: 50%;
+        color: var(--accent);
+        font-weight: 800;
+        font-size: 0.78rem;
+      }
+
+      .brand strong {
+        font-size: 0.95rem;
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .nav-links a {
+        padding: 9px 11px;
+        border-radius: 999px;
+      }
+
+      .nav-links a:hover {
+        color: var(--ink);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .hero {
+        position: relative;
+        min-height: calc(100svh - 72px);
+        display: grid;
+        align-items: center;
+        overflow: hidden;
+        padding: 72px 0;
+      }
+
+      .hero-bg,
+      .hero-shade {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .hero-bg {
+        object-fit: cover;
+        opacity: 0.72;
+        filter: saturate(0.92) contrast(1.05);
+      }
+
+      .hero-shade {
+        background:
+          linear-gradient(90deg, rgba(8, 10, 13, 0.95) 0%, rgba(8, 10, 13, 0.78) 43%, rgba(8, 10, 13, 0.32) 100%),
+          linear-gradient(180deg, rgba(8, 10, 13, 0.12) 0%, rgba(8, 10, 13, 0.86) 100%);
+      }
+
+      .hero-grid {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(360px, 0.72fr);
+        align-items: center;
+        gap: 48px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 36px;
+        padding: 8px 12px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        color: var(--muted);
+        background: rgba(255, 255, 255, 0.03);
+      }
+
+      .pulse {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--accent-2);
+        box-shadow: 0 0 18px rgba(101, 199, 210, 0.9);
+      }
+
+      h1 {
+        margin: 24px 0 0;
+        max-width: 900px;
+        font-size: clamp(3rem, 8vw, 7.2rem);
+        line-height: 0.92;
+      }
+
+      .hero-headline {
+        margin: 26px 0 0;
+        max-width: 720px;
+        font-size: clamp(1.28rem, 2.6vw, 2.15rem);
+        line-height: 1.36;
+      }
+
+      .hero-intro,
+      .section-copy,
+      .en-copy {
+        color: var(--muted);
+        line-height: 1.82;
+      }
+
+      .hero-intro {
+        margin: 20px 0 0;
+        max-width: 720px;
+        font-size: 1.02rem;
+      }
+
+      .en-copy {
+        margin: 12px 0 0;
+        font-size: 0.94rem;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .primary-action,
+      .secondary-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 0 18px;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+
+      .primary-action {
+        color: #11110f;
+        background: var(--accent);
+      }
+
+      .secondary-action {
+        border: 1px solid var(--line-strong);
+        background: rgba(255, 255, 255, 0.05);
+      }
+
+      .starmap-card {
+        position: relative;
+        min-height: 500px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background:
+          radial-gradient(circle at 70% 24%, rgba(217, 181, 111, 0.14), transparent 9rem),
+          radial-gradient(circle at 36% 72%, rgba(101, 199, 210, 0.12), transparent 10rem),
+          rgba(8, 10, 13, 0.36);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .starmap-orbit {
+        position: absolute;
+        inset: 14%;
+        border: 1px solid rgba(244, 240, 232, 0.1);
+        border-radius: 50%;
+        transform: rotate(-18deg);
+      }
+
+      .starmap-lines {
+        position: absolute;
+        inset: 10%;
+        width: 80%;
+        height: 80%;
+      }
+
+      .starmap-lines path {
+        fill: none;
+        stroke: rgba(244, 240, 232, 0.28);
+        stroke-width: 0.35;
+      }
+
+      .star-node {
+        position: absolute;
+        border-radius: 50%;
+        background: var(--accent);
+        box-shadow: 0 0 18px rgba(217, 181, 111, 0.7);
+        transform: translate(-50%, -50%);
+        transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+      }
+
+      .star-node::after {
+        content: "";
+        position: absolute;
+        inset: -10px;
+        border-radius: 50%;
+        border: 1px solid rgba(217, 181, 111, 0.18);
+      }
+
+      .star-node:hover {
+        background: var(--accent-2);
+        box-shadow: 0 0 28px rgba(101, 199, 210, 0.9);
+        transform: translate(-50%, -50%) scale(1.35);
+      }
+
+      .node-wifi8 { left: 72%; top: 24%; width: 14px; height: 14px; }
+      .node-wifi7 { left: 54%; top: 46%; width: 11px; height: 11px; }
+      .node-gaming { left: 29%; top: 38%; width: 10px; height: 10px; }
+      .node-us { left: 63%; top: 70%; width: 13px; height: 13px; }
+      .node-japan { left: 35%; top: 68%; width: 9px; height: 9px; }
+      .node-ecosystem { left: 78%; top: 58%; width: 8px; height: 8px; }
+
+      .starmap-panel {
+        position: absolute;
+        left: 22px;
+        right: 22px;
+        bottom: 22px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: rgba(8, 10, 13, 0.72);
+        backdrop-filter: blur(18px);
+      }
+
+      .starmap-panel p {
+        margin: 0 0 8px;
+        color: var(--subtle);
+        font-size: 0.78rem;
+      }
+
+      .starmap-panel h3 {
+        margin: 0;
+        font-size: 1.25rem;
+      }
+
+      .starmap-panel span {
+        display: inline-block;
+        margin-top: 10px;
+        color: var(--accent);
+        font-size: 0.88rem;
+      }
+
+      .section {
+        padding: 88px 0;
+      }
+
+      .eyebrow {
+        color: var(--accent);
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .section-title {
+        margin: 14px 0 0;
+        max-width: 820px;
+        font-size: clamp(2rem, 5vw, 4.2rem);
+        line-height: 1;
+      }
+
+      .section-copy {
+        margin: 20px 0 0;
+        max-width: 720px;
+        font-size: 1.03rem;
+      }
+
+      .metrics-grid,
+      .project-grid,
+      .visual-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 14px;
+        margin-top: 38px;
+      }
+
+      .metric-card,
+      .theme-card,
+      .project-card,
+      .experience-card,
+      .visual-card,
+      .mail-card {
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: var(--panel);
+        box-shadow: 0 16px 54px rgba(0, 0, 0, 0.18);
+      }
+
+      .metric-card {
+        min-height: 190px;
+        padding: 24px;
+      }
+
+      .metric-card strong {
+        color: var(--accent);
+        font-size: clamp(2rem, 4vw, 3.7rem);
+        line-height: 1;
+      }
+
+      .metric-card h3,
+      .theme-card h3,
+      .project-card h3,
+      .experience-card h3,
+      .visual-card h3 {
+        margin: 16px 0 0;
+        line-height: 1.25;
+      }
+
+      .metric-card p,
+      .theme-card p,
+      .project-card p,
+      .experience-card p,
+      .visual-card p {
+        color: var(--muted);
+        line-height: 1.72;
+      }
+
+      .two-column {
+        display: grid;
+        grid-template-columns: minmax(0, 0.76fr) minmax(420px, 1fr);
+        gap: 56px;
+        align-items: start;
+      }
+
+      .experience-list,
+      .theme-grid {
+        display: grid;
+        gap: 14px;
+      }
+
+      .experience-card {
+        padding: 22px;
+      }
+
+      .experience-meta,
+      .project-meta,
+      .visual-kicker {
+        color: var(--accent);
+        font-size: 0.84rem;
+        font-weight: 800;
+        letter-spacing: 0.04em;
+      }
+
+      .experience-card ul {
+        margin: 16px 0 0;
+        padding-left: 18px;
+        color: var(--ink);
+        line-height: 1.7;
+      }
+
+      .theme-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        margin-top: 34px;
+      }
+
+      .theme-card {
+        min-height: 220px;
+        padding: 22px;
+      }
+
+      .visual-section {
+        padding-top: 40px;
+      }
+
+      .visual-card {
+        overflow: hidden;
+      }
+
+      .visual-card img {
+        display: block;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .visual-card div,
+      .project-card {
+        padding: 22px;
+      }
+
+      .project-card {
+        min-height: 292px;
+      }
+
+      .project-card .project-meta {
+        display: inline-flex;
+        margin-top: 12px;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 0.46fr);
+        align-items: end;
+        gap: 48px;
+      }
+
+      .mail-card {
+        display: flex;
+        min-height: 180px;
+        flex-direction: column;
+        justify-content: flex-end;
+        padding: 24px;
+      }
+
+      .mail-card span {
+        color: var(--muted);
+      }
+
+      .mail-card strong {
+        margin-top: 14px;
+        color: var(--accent);
+        font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+        overflow-wrap: anywhere;
+      }
+
+      .site-footer {
+        border-top: 1px solid var(--line);
+        padding: 28px 0;
+        color: var(--subtle);
+      }
+
+      .site-footer .shell {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .two-column,
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .starmap-card {
+          min-height: 390px;
+        }
+
+        .metrics-grid,
+        .project-grid,
+        .visual-grid,
+        .theme-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        .shell {
+          width: min(100% - 28px, 1180px);
+        }
+
+        .nav {
+          min-height: 64px;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .hero {
+          min-height: auto;
+          padding: 64px 0;
+        }
+
+        h1 {
+          font-size: clamp(2.7rem, 15vw, 4.2rem);
+        }
+
+        .section {
+          padding: 64px 0;
+        }
+
+        .metrics-grid,
+        .project-grid,
+        .visual-grid,
+        .theme-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .site-footer .shell {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="shell nav" aria-label="Primary navigation">
+        <a class="brand" href="#top" aria-label="Allen Sun home">
+          <span>AS</span>
+          <strong>孙光辉 Allen Sun</strong>
+        </a>
+        <div class="nav-links">
+          <a href="#impact">影响力 Impact</a>
+          <a href="#experience">经历 Experience</a>
+          <a href="#projects">项目 Projects</a>
+          <a href="#contact">联系 Contact</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero">
+        <img class="hero-bg" src="assets/hero-starmap.png" alt="" />
+        <div class="hero-shade"></div>
+        <div class="shell hero-grid">
+          <div>
+            <div class="pill"><span class="pulse"></span>Global Product Strategy / GTM / Wi-Fi</div>
+            <h1>消费电子产品领域深耕者</h1>
+            <p class="hero-headline">在全球市场、Wi-Fi 技术代际与商业化落地之间，构建可规模化增长的产品线。</p>
+            <p class="hero-intro">10 年以上网络通信及消费电子产品经验，现任 TP-Link 全球路由产品线负责人，管理覆盖 Wi-Fi 4 至 Wi-Fi 8 的 300+ SKU 产品组合，推动美国、日本等核心市场的产品策略、上市节奏与商业增长。</p>
+            <p class="en-copy">Consumer Electronics Product Leader building scalable product lines across global markets, Wi-Fi generations, and commercial execution.</p>
+            <div class="hero-actions">
+              <a class="primary-action" href="#impact">查看核心成果</a>
+              <a class="secondary-action" href="mailto:allensun0930@gmail.com">联系我</a>
+            </div>
+          </div>
+
+          <div class="starmap-card" aria-label="个人星图静态视觉">
+            <div class="starmap-orbit"></div>
+            <svg class="starmap-lines" viewBox="0 0 100 100" aria-hidden="true">
+              <path d="M72 24 L54 46 L29 38 M54 46 L63 70 L35 68 M63 70 L78 58 L72 24"></path>
+            </svg>
+            <span class="star-node node-wifi8" title="Wi-Fi 8 从 0 到 1 规划"></span>
+            <span class="star-node node-wifi7" title="Wi-Fi 7 全球上市"></span>
+            <span class="star-node node-gaming" title="Gaming Router 品类建立"></span>
+            <span class="star-node node-us" title="美国市场份额跃迁"></span>
+            <span class="star-node node-japan" title="日本本地化产品策略"></span>
+            <span class="star-node node-ecosystem" title="行业生态合作"></span>
+            <div class="starmap-panel">
+              <p>Selected signal</p>
+              <h3>Wi-Fi 8 / Global GTM / Ecosystem</h3>
+              <span>静态星图：职业主线的视觉索引</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="impact">
+        <div class="shell">
+          <span class="eyebrow">Impact</span>
+          <h2 class="section-title">用产品组合和市场节奏，推动全球业务结果。</h2>
+          <p class="section-copy">主页不展开完整简历，而是把最能代表职业密度的数字、市场和产品代际集中呈现。</p>
+          <div class="metrics-grid">
+            <article class="metric-card"><strong>4 亿美元+</strong><h3>产品线年销售额</h3><p>Annual product-line revenue across global router ownership.</p></article>
+            <article class="metric-card"><strong>1400 万台+</strong><h3>年出货量</h3><p>Annual shipments across 100+ country markets.</p></article>
+            <article class="metric-card"><strong>300+ SKU</strong><h3>产品组合规模</h3><p>Portfolio spanning Wi-Fi 4 / 5 / 6 / 7 / 8.</p></article>
+            <article class="metric-card"><strong>30% → 60%+</strong><h3>美国市场份额提升</h3><p>推动 TP-Link 成为美国消费级路由市场第一品牌。</p></article>
+            <article class="metric-card"><strong>20% → 40%+</strong><h3>日本市场份额提升</h3><p>年销量从 500K 增长至 800K+。</p></article>
+            <article class="metric-card"><strong>150+ 人</strong><h3>跨职能研发协同</h3><p>直接管理 5 名 PM，协调软硬测等研发团队。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="experience">
+        <div class="shell two-column">
+          <div>
+            <span class="eyebrow">Experience</span>
+            <h2 class="section-title">一条贯穿全球市场与技术代际的产品线。</h2>
+            <p class="section-copy">从深圳面向全球的产品体系建设，到 2025 年美国市场驻场协同，核心工作始终围绕战略、交付和商业化。</p>
+          </div>
+          <div class="experience-list">
+            <article class="experience-card">
+              <span class="experience-meta">2025.03 - 2025 年底 / 美国</span>
+              <h3>美国市场驻场产品协同</h3>
+              <p>深度连接美国本地 Marketing、Sales 与深圳总部研发团队，围绕渠道策略、产品组合、竞品洞察和 Wi-Fi 7/8 上市节奏推进跨区域协同。</p>
+              <ul>
+                <li>优化 Best Buy、Walmart、Amazon、Costco 等核心渠道产品结构。</li>
+                <li>主导美国消费级路由市场调研与竞品分析。</li>
+                <li>推动 Wi-Fi 7 新品上市，并开展 Wi-Fi 8 美国市场需求调研。</li>
+              </ul>
+            </article>
+            <article class="experience-card">
+              <span class="experience-meta">2016 - 2025.02 / 深圳与全球市场</span>
+              <h3>全球路由产品线管理</h3>
+              <p>全面负责 TP-Link 全球路由产品线的产品战略、Roadmap、GTM 和商业化落地，统筹 Wi-Fi 4 至 Wi-Fi 8 的完整产品体系。</p>
+              <ul>
+                <li>主导 Wi-Fi 6 / 7 / 8 多代产品生命周期管理。</li>
+                <li>建立覆盖入门到旗舰的多价格带全球产品组合。</li>
+                <li>长期对接 Broadcom、Qualcomm、MediaTek 与 Wi-Fi Alliance。</li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="shell">
+          <span class="eyebrow">Work Themes</span>
+          <h2 class="section-title">把复杂产品线拆成可执行的系统。</h2>
+          <div class="theme-grid">
+            <article class="theme-card"><h3>产品战略</h3><p>规划 Wi-Fi 4-8 多代际产品矩阵，形成从 $30 入门级到 $500+ 旗舰级的全球产品组合。</p></article>
+            <article class="theme-card"><h3>GTM 与增长</h3><p>围绕渠道、定价、上市节奏和区域组合，推动美国和日本核心市场份额跃迁。</p></article>
+            <article class="theme-card"><h3>项目交付</h3><p>统筹硬件、软件、结构、认证、供应链等多团队，把产品定义转化为可上市结果。</p></article>
+            <article class="theme-card"><h3>行业生态</h3><p>作为芯片厂商与 Wi-Fi Alliance 对接窗口，参与平台选型、功能定义与认证推进。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section visual-section">
+        <div class="shell">
+          <span class="eyebrow">Visual Narrative</span>
+          <h2 class="section-title">让抽象的产品线工作，变成可以被感知的叙事。</h2>
+          <p class="section-copy">这些由 Image 2 生成的视觉资产，对应三条主线：全球 GTM、Wi-Fi 代际规划和行业生态协同。</p>
+          <div class="visual-grid">
+            <article class="visual-card">
+              <img src="assets/visual-global-gtm.png" alt="" loading="lazy" />
+              <div><span class="visual-kicker">Global GTM</span><h3>把区域差异转化成产品组合优势</h3><p>在价格带、渠道、上市节奏和本地需求之间找到可规模化的组合解法。</p></div>
+            </article>
+            <article class="visual-card">
+              <img src="assets/visual-wifi-roadmap.png" alt="" loading="lazy" />
+              <div><span class="visual-kicker">Wi-Fi Roadmap</span><h3>从 Wi-Fi 4 到 Wi-Fi 8 的产品代际管理</h3><p>在平台选型、功能定义、成本结构和旗舰叙事之间建立长期 Roadmap。</p></div>
+            </article>
+            <article class="visual-card">
+              <img src="assets/visual-ecosystem.png" alt="" loading="lazy" />
+              <div><span class="visual-kicker">Ecosystem</span><h3>在芯片、标准和研发交付之间建立共振</h3><p>把行业标准和上游平台能力转化成可上市产品。</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects">
+        <div class="shell">
+          <span class="eyebrow">Selected Projects</span>
+          <h2 class="section-title">代表性工作，不按时间堆叠，而按影响力展开。</h2>
+          <div class="project-grid">
+            <article class="project-card"><span class="project-meta">产品战略</span><h3>Wi-Fi 8 从 0 到 1 规划</h3><p>完成多平台方案选型、首批产品立项、产品定义与全球 GTM 策略。</p></article>
+            <article class="project-card"><span class="project-meta">产品战略</span><h3>Wi-Fi 7 全球上市</h3><p>主导全系列 Roadmap、定义、开发、制造和多市场首发上市。</p></article>
+            <article class="project-card"><span class="project-meta">市场增长</span><h3>Gaming Router 品类建立</h3><p>进入 20+ 国家市场，2025 年销量 70K+，销售额 1300 万美元。</p></article>
+            <article class="project-card"><span class="project-meta">市场增长</span><h3>美国市场份额跃迁</h3><p>通过产品差异化和核心渠道布局，推动份额从 30% 提升到 60%+。</p></article>
+            <article class="project-card"><span class="project-meta">市场增长</span><h3>日本本地化产品策略</h3><p>推动市场份额从 20% 提升至 40%+，年销量增长至 800K+。</p></article>
+            <article class="project-card"><span class="project-meta">行业生态</span><h3>Wi-Fi Alliance 与上游合作</h3><p>推动 Wi-Fi 7 系列产品完成全球首个 Wi-Fi 标准认证。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="contact">
+        <div class="shell contact-grid">
+          <div>
+            <span class="eyebrow">Contact</span>
+            <h2 class="section-title">如果你关注消费电子、全球产品策略或 Wi-Fi 生态，我们可以聊聊。</h2>
+            <p class="section-copy">公开主页仅保留邮箱作为联系入口。</p>
+          </div>
+          <a class="mail-card" href="mailto:allensun0930@gmail.com">
+            <span>深圳 / 全球市场 / Global</span>
+            <strong>allensun0930@gmail.com</strong>
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell">
+        <span>© 2026 Allen Sun</span>
+        <span>Consumer Electronics Product Leader</span>
+      </div>
+    </footer>
+  </body>
+</html>
