@@ -20,6 +20,8 @@
         --accent-2: #65c7d2;
         --accent-3: #e67f6f;
         --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+        --cursor-x: 50vw;
+        --cursor-y: 28vh;
         font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
@@ -33,6 +35,7 @@
       }
 
       body {
+        position: relative;
         margin: 0;
         min-width: 320px;
         color: var(--ink);
@@ -40,6 +43,38 @@
           radial-gradient(circle at 12% 8%, rgba(101, 199, 210, 0.12), transparent 30rem),
           radial-gradient(circle at 82% 12%, rgba(217, 181, 111, 0.11), transparent 32rem),
           linear-gradient(180deg, #080a0d 0%, #0c1015 48%, #080a0d 100%);
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        z-index: -2;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(101, 199, 210, 0.075) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(217, 181, 111, 0.06) 1px, transparent 1px);
+        background-size: 76px 76px;
+        mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.55), transparent 74%);
+        animation: grid-drift 24s linear infinite;
+      }
+
+      .cursor-glow {
+        position: fixed;
+        left: var(--cursor-x);
+        top: var(--cursor-y);
+        z-index: -1;
+        width: 42rem;
+        height: 42rem;
+        border-radius: 50%;
+        background:
+          radial-gradient(circle, rgba(101, 199, 210, 0.18), rgba(217, 181, 111, 0.08) 38%, transparent 68%);
+        transform: translate(-50%, -50%);
+        filter: blur(6px);
+        opacity: 0.78;
+        pointer-events: none;
+        transition: opacity 180ms ease;
       }
 
       a {
@@ -118,6 +153,31 @@
         padding: 72px 0;
       }
 
+      .hero::before,
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .hero::before {
+        z-index: 1;
+        background:
+          linear-gradient(115deg, transparent 0 42%, rgba(101, 199, 210, 0.12) 48%, transparent 54% 100%);
+        transform: translateX(-45%);
+        animation: signal-sweep 9s ease-in-out infinite;
+      }
+
+      .hero::after {
+        z-index: 1;
+        background:
+          radial-gradient(circle at 78% 26%, rgba(101, 199, 210, 0.18), transparent 18rem),
+          radial-gradient(circle at 42% 82%, rgba(230, 127, 111, 0.11), transparent 18rem);
+        opacity: 0.72;
+        animation: aurora-pulse 7s ease-in-out infinite alternate;
+      }
+
       .hero-bg,
       .hero-shade {
         position: absolute;
@@ -127,12 +187,16 @@
       }
 
       .hero-bg {
+        z-index: 0;
         object-fit: cover;
         opacity: 0.72;
         filter: saturate(0.92) contrast(1.05);
+        transform: scale(1.04) translate3d(calc(var(--mx, 0) * -10px), calc(var(--my, 0) * -10px), 0);
+        transition: transform 160ms ease-out;
       }
 
       .hero-shade {
+        z-index: 1;
         background:
           linear-gradient(90deg, rgba(8, 10, 13, 0.95) 0%, rgba(8, 10, 13, 0.78) 43%, rgba(8, 10, 13, 0.32) 100%),
           linear-gradient(180deg, rgba(8, 10, 13, 0.12) 0%, rgba(8, 10, 13, 0.86) 100%);
@@ -140,7 +204,7 @@
 
       .hero-grid {
         position: relative;
-        z-index: 1;
+        z-index: 2;
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(360px, 0.72fr);
         align-items: center;
@@ -215,16 +279,28 @@
         padding: 0 18px;
         border-radius: 999px;
         font-weight: 700;
+        transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
       }
 
       .primary-action {
         color: #11110f;
         background: var(--accent);
+        box-shadow: 0 12px 36px rgba(217, 181, 111, 0.22);
       }
 
       .secondary-action {
         border: 1px solid var(--line-strong);
         background: rgba(255, 255, 255, 0.05);
+      }
+
+      .primary-action:hover,
+      .secondary-action:hover {
+        transform: translateY(-2px);
+      }
+
+      .secondary-action:hover {
+        border-color: rgba(101, 199, 210, 0.58);
+        box-shadow: 0 14px 42px rgba(101, 199, 210, 0.12);
       }
 
       .starmap-card {
@@ -238,6 +314,32 @@
           rgba(8, 10, 13, 0.36);
         box-shadow: var(--shadow);
         overflow: hidden;
+        transform: perspective(1100px) rotateX(calc(var(--my, 0) * -2.5deg)) rotateY(calc(var(--mx, 0) * 3.5deg));
+        transition: transform 160ms ease-out, border-color 220ms ease, box-shadow 220ms ease;
+      }
+
+      .starmap-card::before,
+      .starmap-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .starmap-card::before {
+        background:
+          linear-gradient(120deg, transparent 0 34%, rgba(101, 199, 210, 0.16) 43%, transparent 54% 100%);
+        mix-blend-mode: screen;
+        transform: translateX(-70%);
+        animation: card-scan 6s ease-in-out infinite;
+      }
+
+      .starmap-card::after {
+        border: 1px solid rgba(101, 199, 210, 0.18);
+        inset: 18px;
+        border-radius: 50%;
+        opacity: 0.56;
+        animation: orbit-breathe 5.8s ease-in-out infinite alternate;
       }
 
       .starmap-orbit {
@@ -246,6 +348,7 @@
         border: 1px solid rgba(244, 240, 232, 0.1);
         border-radius: 50%;
         transform: rotate(-18deg);
+        animation: orbit-spin 22s linear infinite;
       }
 
       .starmap-lines {
@@ -263,11 +366,17 @@
 
       .star-node {
         position: absolute;
+        z-index: 2;
         border-radius: 50%;
+        border: 0;
+        padding: 0;
+        appearance: none;
         background: var(--accent);
         box-shadow: 0 0 18px rgba(217, 181, 111, 0.7);
         transform: translate(-50%, -50%);
+        cursor: pointer;
         transition: transform 220ms ease, box-shadow 220ms ease, background 220ms ease;
+        animation: node-pulse 2.9s ease-in-out infinite;
       }
 
       .star-node::after {
@@ -278,10 +387,13 @@
         border: 1px solid rgba(217, 181, 111, 0.18);
       }
 
-      .star-node:hover {
+      .star-node:hover,
+      .star-node:focus-visible,
+      .star-node.is-active {
         background: var(--accent-2);
         box-shadow: 0 0 28px rgba(101, 199, 210, 0.9);
         transform: translate(-50%, -50%) scale(1.35);
+        outline: none;
       }
 
       .node-wifi8 { left: 72%; top: 24%; width: 14px; height: 14px; }
@@ -293,6 +405,7 @@
 
       .starmap-panel {
         position: absolute;
+        z-index: 3;
         left: 22px;
         right: 22px;
         bottom: 22px;
@@ -361,10 +474,50 @@
       .experience-card,
       .visual-card,
       .mail-card {
+        position: relative;
         border: 1px solid var(--line);
         border-radius: 8px;
         background: var(--panel);
         box-shadow: 0 16px 54px rgba(0, 0, 0, 0.18);
+        overflow: hidden;
+        transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+      }
+
+      .metric-card::before,
+      .theme-card::before,
+      .project-card::before,
+      .experience-card::before,
+      .visual-card::before,
+      .mail-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(circle at 16% 0%, rgba(101, 199, 210, 0.14), transparent 34%),
+          linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 46%);
+        opacity: 0;
+        transition: opacity 220ms ease;
+        pointer-events: none;
+      }
+
+      .metric-card:hover,
+      .theme-card:hover,
+      .project-card:hover,
+      .experience-card:hover,
+      .visual-card:hover,
+      .mail-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(101, 199, 210, 0.34);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.28);
+      }
+
+      .metric-card:hover::before,
+      .theme-card:hover::before,
+      .project-card:hover::before,
+      .experience-card:hover::before,
+      .visual-card:hover::before,
+      .mail-card:hover::before {
+        opacity: 1;
       }
 
       .metric-card {
@@ -373,9 +526,11 @@
       }
 
       .metric-card strong {
+        display: inline-block;
         color: var(--accent);
         font-size: clamp(2rem, 4vw, 3.7rem);
         line-height: 1;
+        text-shadow: 0 0 22px rgba(217, 181, 111, 0.24);
       }
 
       .metric-card h3,
@@ -453,6 +608,13 @@
         aspect-ratio: 16 / 9;
         object-fit: cover;
         border-bottom: 1px solid var(--line);
+        filter: saturate(0.92) contrast(1.04);
+        transition: transform 420ms ease, filter 420ms ease;
+      }
+
+      .visual-card:hover img {
+        transform: scale(1.04);
+        filter: saturate(1.1) contrast(1.08);
       }
 
       .visual-card div,
@@ -505,6 +667,70 @@
         display: flex;
         justify-content: space-between;
         gap: 20px;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition: opacity 700ms ease, transform 700ms ease;
+      }
+
+      .reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      @keyframes grid-drift {
+        from { background-position: 0 0, 0 0; }
+        to { background-position: 76px 76px, 76px 76px; }
+      }
+
+      @keyframes signal-sweep {
+        0%, 42% { transform: translateX(-58%); opacity: 0; }
+        52% { opacity: 0.65; }
+        78%, 100% { transform: translateX(58%); opacity: 0; }
+      }
+
+      @keyframes aurora-pulse {
+        from { transform: scale(1); opacity: 0.48; }
+        to { transform: scale(1.06); opacity: 0.82; }
+      }
+
+      @keyframes card-scan {
+        0%, 36% { transform: translateX(-78%); opacity: 0; }
+        52% { opacity: 0.56; }
+        100% { transform: translateX(78%); opacity: 0; }
+      }
+
+      @keyframes orbit-breathe {
+        from { transform: scale(0.96); opacity: 0.28; }
+        to { transform: scale(1.03); opacity: 0.58; }
+      }
+
+      @keyframes orbit-spin {
+        from { transform: rotate(-18deg); }
+        to { transform: rotate(342deg); }
+      }
+
+      @keyframes node-pulse {
+        0%, 100% { box-shadow: 0 0 18px rgba(217, 181, 111, 0.66); }
+        50% { box-shadow: 0 0 28px rgba(217, 181, 111, 0.92); }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.001ms !important;
+          animation-iteration-count: 1 !important;
+          scroll-behavior: auto !important;
+          transition-duration: 0.001ms !important;
+        }
+
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
       }
 
       @media (max-width: 980px) {
@@ -566,6 +792,7 @@
     </style>
   </head>
   <body>
+    <div class="cursor-glow" aria-hidden="true"></div>
     <header class="site-header">
       <nav class="shell nav" aria-label="Primary navigation">
         <a class="brand" href="#top" aria-label="Allen Sun home">
@@ -603,16 +830,16 @@
             <svg class="starmap-lines" viewBox="0 0 100 100" aria-hidden="true">
               <path d="M72 24 L54 46 L29 38 M54 46 L63 70 L35 68 M63 70 L78 58 L72 24"></path>
             </svg>
-            <span class="star-node node-wifi8" title="Wi-Fi 8 从 0 到 1 规划"></span>
-            <span class="star-node node-wifi7" title="Wi-Fi 7 全球上市"></span>
-            <span class="star-node node-gaming" title="Gaming Router 品类建立"></span>
-            <span class="star-node node-us" title="美国市场份额跃迁"></span>
-            <span class="star-node node-japan" title="日本本地化产品策略"></span>
-            <span class="star-node node-ecosystem" title="行业生态合作"></span>
+            <button class="star-node node-wifi8 is-active" type="button" aria-label="Wi-Fi 8 从 0 到 1 规划" data-title="Wi-Fi 8 从 0 到 1 规划" data-detail="多平台选型、首批立项、全球产品定义与 GTM 节奏。"></button>
+            <button class="star-node node-wifi7" type="button" aria-label="Wi-Fi 7 全球上市" data-title="Wi-Fi 7 全球上市" data-detail="从 Roadmap、定义、开发到多市场首发上市的完整推进。"></button>
+            <button class="star-node node-gaming" type="button" aria-label="Gaming Router 品类建立" data-title="Gaming Router 品类建立" data-detail="进入 20+ 国家市场，形成面向玩家人群的差异化产品线。"></button>
+            <button class="star-node node-us" type="button" aria-label="美国市场份额跃迁" data-title="美国市场份额跃迁" data-detail="围绕核心渠道与产品差异化，将份额从 30% 推至 60%+。"></button>
+            <button class="star-node node-japan" type="button" aria-label="日本本地化产品策略" data-title="日本本地化产品策略" data-detail="以本地化组合和渠道策略推动份额从 20% 到 40%+。"></button>
+            <button class="star-node node-ecosystem" type="button" aria-label="行业生态合作" data-title="行业生态合作" data-detail="连接芯片厂商、Wi-Fi Alliance 与内部研发交付体系。"></button>
             <div class="starmap-panel">
               <p>Selected signal</p>
-              <h3>Wi-Fi 8 / Global GTM / Ecosystem</h3>
-              <span>静态星图：职业主线的视觉索引</span>
+              <h3 id="signal-title">Wi-Fi 8 从 0 到 1 规划</h3>
+              <span id="signal-detail">多平台选型、首批立项、全球产品定义与 GTM 节奏。</span>
             </div>
           </div>
         </div>
@@ -624,12 +851,12 @@
           <h2 class="section-title">用产品组合和市场节奏，推动全球业务结果。</h2>
           <p class="section-copy">主页不展开完整简历，而是把最能代表职业密度的数字、市场和产品代际集中呈现。</p>
           <div class="metrics-grid">
-            <article class="metric-card"><strong>4 亿美元+</strong><h3>产品线年销售额</h3><p>Annual product-line revenue across global router ownership.</p></article>
-            <article class="metric-card"><strong>1400 万台+</strong><h3>年出货量</h3><p>Annual shipments across 100+ country markets.</p></article>
-            <article class="metric-card"><strong>300+ SKU</strong><h3>产品组合规模</h3><p>Portfolio spanning Wi-Fi 4 / 5 / 6 / 7 / 8.</p></article>
-            <article class="metric-card"><strong>30% → 60%+</strong><h3>美国市场份额提升</h3><p>推动 TP-Link 成为美国消费级路由市场第一品牌。</p></article>
-            <article class="metric-card"><strong>20% → 40%+</strong><h3>日本市场份额提升</h3><p>年销量从 500K 增长至 800K+。</p></article>
-            <article class="metric-card"><strong>150+ 人</strong><h3>跨职能研发协同</h3><p>直接管理 5 名 PM，协调软硬测等研发团队。</p></article>
+            <article class="metric-card"><strong data-count-to="4" data-prefix="" data-suffix=" 亿美元+">4 亿美元+</strong><h3>产品线年销售额</h3><p>Annual product-line revenue across global router ownership.</p></article>
+            <article class="metric-card"><strong data-count-to="1400" data-prefix="" data-suffix=" 万台+">1400 万台+</strong><h3>年出货量</h3><p>Annual shipments across 100+ country markets.</p></article>
+            <article class="metric-card"><strong data-count-to="300" data-prefix="" data-suffix="+ SKU">300+ SKU</strong><h3>产品组合规模</h3><p>Portfolio spanning Wi-Fi 4 / 5 / 6 / 7 / 8.</p></article>
+            <article class="metric-card"><strong data-count-to="60" data-prefix="30% → " data-suffix="%+">30% → 60%+</strong><h3>美国市场份额提升</h3><p>推动 TP-Link 成为美国消费级路由市场第一品牌。</p></article>
+            <article class="metric-card"><strong data-count-to="40" data-prefix="20% → " data-suffix="%+">20% → 40%+</strong><h3>日本市场份额提升</h3><p>年销量从 500K 增长至 800K+。</p></article>
+            <article class="metric-card"><strong data-count-to="150" data-prefix="" data-suffix="+ 人">150+ 人</strong><h3>跨职能研发协同</h3><p>直接管理 5 名 PM，协调软硬测等研发团队。</p></article>
           </div>
         </div>
       </section>
@@ -737,5 +964,87 @@
         <span>Consumer Electronics Product Leader</span>
       </div>
     </footer>
+    <script>
+      (() => {
+        const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const root = document.documentElement;
+        const hero = document.querySelector(".hero");
+        const starmap = document.querySelector(".starmap-card");
+
+        if (!prefersReducedMotion) {
+          window.addEventListener("pointermove", (event) => {
+            root.style.setProperty("--cursor-x", `${event.clientX}px`);
+            root.style.setProperty("--cursor-y", `${event.clientY}px`);
+          }, { passive: true });
+
+          hero?.addEventListener("pointermove", (event) => {
+            const rect = hero.getBoundingClientRect();
+            const x = ((event.clientX - rect.left) / rect.width - 0.5).toFixed(3);
+            const y = ((event.clientY - rect.top) / rect.height - 0.5).toFixed(3);
+            hero.style.setProperty("--mx", x);
+            hero.style.setProperty("--my", y);
+            starmap?.style.setProperty("--mx", x);
+            starmap?.style.setProperty("--my", y);
+          }, { passive: true });
+        }
+
+        const signalTitle = document.querySelector("#signal-title");
+        const signalDetail = document.querySelector("#signal-detail");
+        const nodes = document.querySelectorAll(".star-node");
+
+        nodes.forEach((node) => {
+          const activate = () => {
+            nodes.forEach((item) => item.classList.remove("is-active"));
+            node.classList.add("is-active");
+            if (signalTitle && signalDetail) {
+              signalTitle.textContent = node.dataset.title || "";
+              signalDetail.textContent = node.dataset.detail || "";
+            }
+          };
+
+          node.addEventListener("mouseenter", activate);
+          node.addEventListener("focus", activate);
+          node.addEventListener("click", activate);
+        });
+
+        const revealTargets = document.querySelectorAll(
+          ".section, .metric-card, .experience-card, .theme-card, .visual-card, .project-card, .mail-card"
+        );
+        revealTargets.forEach((element) => element.classList.add("reveal"));
+
+        const animateNumber = (element) => {
+          if (element.dataset.counted === "true") return;
+          element.dataset.counted = "true";
+          const target = Number(element.dataset.countTo || 0);
+          const prefix = element.dataset.prefix || "";
+          const suffix = element.dataset.suffix || "";
+          const start = performance.now();
+          const duration = 1100;
+
+          const tick = (time) => {
+            const progress = Math.min((time - start) / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const value = Math.round(target * eased);
+            element.textContent = `${prefix}${value}${suffix}`;
+            if (progress < 1) requestAnimationFrame(tick);
+          };
+
+          requestAnimationFrame(tick);
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add("is-visible");
+            entry.target.querySelectorAll?.("[data-count-to]").forEach(animateNumber);
+            if (entry.target.matches?.("[data-count-to]")) animateNumber(entry.target);
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.18 });
+
+        revealTargets.forEach((element) => observer.observe(element));
+        document.querySelectorAll("[data-count-to]").forEach((element) => observer.observe(element));
+      })();
+    </script>
   </body>
 </html>
